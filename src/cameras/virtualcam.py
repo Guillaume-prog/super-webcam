@@ -21,13 +21,17 @@ class VirtualCam:
         self.thread.join()
 
     def show_cam(self, width, height):
-        with pyvirtualcam.Camera(
-                width=int(width),
-                height=int(height),
-                fps=30, device="/dev/video2",
-                fmt=pyvirtualcam.PixelFormat.BGR) as cam:
+        try:
+            with pyvirtualcam.Camera(
+                    width=int(width),
+                    height=int(height),
+                    fps=30, device="/dev/video2",
+                    fmt=pyvirtualcam.PixelFormat.BGR) as cam:
 
-            print(f'Using virtual camera: {cam.device}')
-            while self.running:
-                cam.send(self.frame)
-                cam.sleep_until_next_frame()
+                print(f'Using virtual camera: {cam.device}')
+                while self.running:
+                    cam.send(self.frame)
+                    cam.sleep_until_next_frame()
+        except Exception:
+            print("Failed to start virtual camera. Run the following command to fix it:\n"
+                  "sudo modprobe v4l2loopback devices=2")

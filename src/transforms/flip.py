@@ -27,9 +27,9 @@ class FlipTf(BaseTf):
         self.angle = 0
 
     def spin(self, total_time):
-        step_time = total_time / (360/5)
-        for i in range(0, 360, 5):
-            print(i)
+        step = 1
+        step_time = total_time / (360/step)
+        for i in range(0, 360, step):
             self.angle = i
             time.sleep(step_time)
         self.angle = 0
