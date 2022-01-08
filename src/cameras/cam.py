@@ -13,7 +13,7 @@ class Camera:
 
         self.running = True
 
-        self.tfs = [ZoomTf(1.5), FaceTf(), FlipTf()]
+        self.tfs = [ZoomTf(1.5), FaceTf(), FlipTf(), FilterTf()]
 
     def quit(self):
         self.cam.release()
