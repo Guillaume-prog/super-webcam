@@ -7,13 +7,20 @@ class Camera:
 
     ZOOM_FACTOR = 1.5
 
-    def __init__(self):
+    def get_sources(self):
+        pass
+
+    def __init__(self, ratio_x, ratio_y):
         self.cam = cv2.VideoCapture(0)
-        self.vcam = VirtualCam(self.cam.get(3), self.cam.get(4))
+
+        width = int(self.cam.get(3))
+        height = int(width / (ratio_x / ratio_y))
+        print(width, height)
+        self.vcam = VirtualCam(width, height)
 
         self.running = True
 
-        self.tfs = [ZoomTf(1.5), FaceTf(), FlipTf(), FilterTf()]
+        self.tfs = [ResizeTf(ratio_x, ratio_y), ZoomTf(1.5), FaceTf(), FlipTf(), FilterTf(), OverlayTf()]
 
     def quit(self):
         self.cam.release()

@@ -32,6 +32,8 @@ class VirtualCam:
                 while self.running:
                     cam.send(self.frame)
                     cam.sleep_until_next_frame()
-        except Exception:
+        except IOError:
             print("Failed to start virtual camera. Run the following command to fix it:\n"
                   "sudo modprobe v4l2loopback devices=2")
+        except:
+            print("Something went wrong")
